@@ -13,18 +13,18 @@
     "build"
   ],
   "dependencies": {
-    "@dtdot/lego": "^0.5.8",
-    "react-spring": "^8.0.27"
+    "@dtdot/lego": "^0.7.0",
+    "uuid": "^8.3.2"
   },
   "peerDependencies": {
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "styled-components": "^5.2.1"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
     "@types/styled-components": "^5.1.10",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "eslint": "^7.29.0",
