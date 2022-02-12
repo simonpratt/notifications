@@ -13,10 +13,10 @@
     "build"
   ],
   "dependencies": {
-    "@dtdot/lego": "^0.12.11",
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
+    "@dtdot/lego": "^0.17.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
