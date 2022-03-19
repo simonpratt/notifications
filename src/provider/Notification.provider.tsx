@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-use-before-define
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useRef } from 'react';
 import { v4 } from 'uuid';
 
 import NotificationContext from '../context/Notification.context';
@@ -12,6 +12,7 @@ interface NotificationReducerState {
     id: string;
     durationMs: number;
   }[];
+  notificationsRef: React.MutableRefObject<INotificationInternal[]>;
 }
 
 const isMatchingNotification = (existingNotification: INotification, newNotification: INotification) => {
@@ -27,41 +28,52 @@ const reducer = (state: NotificationReducerState, action: any) => {
     case 'add': {
       const { id, notification, timeout } = action;
 
+      const newNotifications = [
+        ...state.notifications,
+        {
+          ...notification,
+          id,
+          timeout,
+          count: 1,
+        },
+      ];
+
+      state.notificationsRef.current = newNotifications;
+
       return {
         ...state,
-        notifications: [
-          ...state.notifications,
-          {
-            ...notification,
-            id,
-            timeout,
-            count: 1,
-          },
-        ],
+        notifications: newNotifications,
       };
     }
     case 'extend': {
       const { id, timeout } = action;
 
+      const newNotifications = state.notifications.map((notification) =>
+        notification.id === id
+          ? {
+              ...notification,
+              timeout: timeout,
+              count: notification.count + 1,
+            }
+          : notification,
+      );
+
+      state.notificationsRef.current = newNotifications;
+
       return {
         ...state,
-        notifications: state.notifications.map((notification) =>
-          notification.id === id
-            ? {
-                ...notification,
-                timeout: timeout,
-                count: notification.count + 1,
-              }
-            : notification,
-        ),
+        notifications: newNotifications,
       };
     }
     case 'remove': {
       const { id } = action;
 
+      const newNotifications = state.notifications.filter((notification) => notification.id !== id);
+      state.notificationsRef.current = newNotifications;
+
       return {
         ...state,
-        notifications: state.notifications.filter((notification) => notification.id !== id),
+        notifications: newNotifications,
       };
     }
     default:
@@ -74,7 +86,9 @@ export interface NotificationProviderProps {
 }
 
 const NotificationProvider = ({ children }: NotificationProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, { notifications: [], dismissJobs: [] });
+  // Using a ref to track current notifications to avoid infinite re-rendering of the addNotification method
+  const notificationsRef = useRef<INotificationInternal[]>([]);
+  const [state, dispatch] = useReducer(reducer, { notifications: [], dismissJobs: [], notificationsRef });
 
   const clearNotification = useCallback(
     (id: string) => {
@@ -85,7 +99,7 @@ const NotificationProvider = ({ children }: NotificationProviderProps) => {
 
   const addNotification = useCallback(
     (notification: INotification, durationMs = 3000) => {
-      const existing = state.notifications.find((_existing) => isMatchingNotification(_existing, notification));
+      const existing = notificationsRef.current.find((_existing) => isMatchingNotification(_existing, notification));
 
       if (existing) {
         const { timeout: existingTimeout, id } = existing;
@@ -123,7 +137,7 @@ const NotificationProvider = ({ children }: NotificationProviderProps) => {
         });
       }
     },
-    [dispatch, clearNotification, state],
+    [dispatch, clearNotification, notificationsRef],
   );
 
   const internalValue = {
