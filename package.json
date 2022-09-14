@@ -13,30 +13,30 @@
     "build"
   ],
   "dependencies": {
-    "@dtdot/lego": "^0.18.4",
-    "uuid": "^8.3.2"
+    "@dtdot/lego": "^0.19.11",
+    "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.11",
-    "@types/react-dom": "^17.0.8",
-    "@types/styled-components": "^5.1.10",
-    "@types/uuid": "^8.3.1",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
     "prettier-eslint": "^12.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "styled-components": "^5.2.1",
-    "typescript": "^4.3.4"
+    "typescript": "^4.8.3"
   }
 }
