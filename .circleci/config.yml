@@ -3,7 +3,7 @@ version: 2.1
 executors:
   build-agent:
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:18.12.1
     working_directory: /tmp/notifications
   docker-machine:
     machine: true
