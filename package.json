@@ -16,7 +16,7 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@dtdot/lego": "1.x",
+    "@dtdot/lego": "1",
     "react": "16 - 18",
     "react-dom": "16 - 18"
   },
