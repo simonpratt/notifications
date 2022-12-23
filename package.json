@@ -1,6 +1,6 @@
 {
   "name": "@dtdot/notifications",
-  "version": "0.1.10",
+  "version": "1.0.0",
   "description": "An opinionated notification/toast provider using react",
   "main": "build/index.js",
   "scripts": {
